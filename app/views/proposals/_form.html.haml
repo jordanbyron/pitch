@@ -1,0 +1,10 @@
+= form_for proposal do |f|
+  %p
+    = f.label :customer_name
+    %br
+    = f.text_field :customer_name
+  %p
+    = f.label :description
+    %br
+    = f.text_field :description
+  %p= f.submit nil, class: 'btn'

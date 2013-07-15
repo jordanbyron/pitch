@@ -13,7 +13,7 @@ gem 'cancan'
 gem 'haml'
 gem 'draper'
 gem 'will_paginate'
-
+gem 'decent_exposure'
 
 # Asset Gems
 gem 'sass-rails', '~> 4.0.0'

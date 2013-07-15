@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_account, :decorated_user
 
+  decent_configuration do
+    strategy DecentExposure::StrongParametersStrategy
+  end
+
   private
 
   def current_account

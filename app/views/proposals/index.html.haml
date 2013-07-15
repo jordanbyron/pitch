@@ -1,0 +1,18 @@
+%h1 Proposals
+
+%p= link_to "New Proposal", new_proposal_path, class: 'btn'
+
+%table.table
+  %thead
+    %tr
+      %th Number
+      %th Customer
+      %th Description
+      %th Status
+  %tbody
+    - proposals.each do |proposal|
+      %tr
+        %td= proposal.number
+        %td= proposal.customer_name
+        %td= proposal.description
+        %td= proposal.status
