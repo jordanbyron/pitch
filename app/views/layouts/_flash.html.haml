@@ -1,0 +1,5 @@
+#flash
+  - flash.each do |flashtype, message|
+    .alert{class: "alert-#{flashtype} fade in"}
+      %a{href: "#", class:"close", data: {dismiss:"alert"}} &times;
+      = message
