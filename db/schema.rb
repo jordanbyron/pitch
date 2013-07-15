@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130715182647) do
+ActiveRecord::Schema.define(version: 20130715184954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,46 @@ ActiveRecord::Schema.define(version: 20130715182647) do
   create_table "accounts", force: true do |t|
     t.string   "company_name"
     t.string   "database_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups", force: true do |t|
+    t.integer  "proposal_id"
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "proposal_statuses", force: true do |t|
+    t.string   "name"
+    t.integer  "system_status_id"
+    t.boolean  "default",          default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "proposals", force: true do |t|
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.integer  "proposal_number"
+    t.integer  "revision"
+    t.text     "description"
+    t.string   "customer_name"
+    t.integer  "proposal_status_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rows", force: true do |t|
+    t.integer  "proposal_id"
+    t.integer  "group_id"
+    t.string   "sku"
+    t.string   "description"
+    t.integer  "quantity",    default: 1
+    t.decimal  "price",       default: 0.0
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
