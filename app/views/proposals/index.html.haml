@@ -12,7 +12,7 @@
   %tbody
     - proposals.each do |proposal|
       %tr
-        %td= proposal.number
+        %td= link_to proposal.number, edit_proposal_path(proposal)
         %td= proposal.customer_name
         %td= proposal.description
         %td= proposal.status

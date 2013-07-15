@@ -1,9 +1,10 @@
-.navbar
+.navbar.navbar-fixed-top
   .navbar-inner
-    = link_to current_account.company_name, root_path, class: 'brand'
-    %ul.nav
-      %li= link_to "Proposals", proposals_path
-    %ul.nav.pull-right
-      %li
-        %p.navbar-text= decorated_user.friendly_greeting
-      %li= link_to "Sign out", destroy_user_session_path, method: 'delete'
+    .container
+      = link_to current_account.company_name, root_path, class: 'brand'
+      %ul.nav
+        %li= link_to "Proposals", proposals_path
+      %ul.nav.pull-right
+        %li
+          %p.navbar-text= decorated_user.friendly_greeting
+        %li= link_to "Sign out", destroy_user_session_path, method: 'delete'

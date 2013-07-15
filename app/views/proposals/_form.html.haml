@@ -1,4 +1,6 @@
 = form_for proposal do |f|
+  %h1= proposal.number
+
   %p
     = f.label :customer_name
     %br
@@ -7,4 +9,21 @@
     = f.label :description
     %br
     = f.text_field :description
-  %p= f.submit nil, class: 'btn'
+
+  %hr
+
+  %ul#list
+    = proposal.render_items(f)
+
+  .navbar.navbar-fixed-bottom
+    .navbar-inner
+      .container
+        .pull-left
+          = f.submit nil, class: 'btn btn-primary'
+          = proposal.add_row_button(f)
+          = proposal.add_group_button(f)
+        .pull-right
+          %p.navbar-text
+            = link_to "Delete Proposal", proposal_path(proposal),
+            data: { confirm: "Are you sure you wish to delete this proposal?" },
+            method: 'delete', class: 'text-error'

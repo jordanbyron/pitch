@@ -1,0 +1,18 @@
+%li.nested-fields
+  .field
+    = f.label :sku
+    %br
+    = f.text_field :sku
+  .field
+    = f.label :description
+    %br
+    = f.text_field :description
+  .field
+    = f.label :quantity
+    %br
+    = f.text_field :quantity
+  .field
+    = f.label :price
+    %br
+    = f.text_field :price
+  = link_to_remove_association "remove row", f
