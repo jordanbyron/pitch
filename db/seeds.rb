@@ -1,7 +1,16 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+raw_parameters = { database_name: 'jb', company_name: "Jordan's Company" }
+parameters = ActionController::Parameters.new(raw_parameters)
+
+account = Account.create(parameters.permit(:database_name, :company_name))
+
+Apartment::Database.switch('jb')
+
+user = User.new
+
+user.first_name            = "Jordan"
+user.last_name             = "Byron"
+user.email                 = "jordan.byron@gmail.com"
+user.password              = "temp123456"
+user.password_confirmation = "temp123456"
+
+user.save

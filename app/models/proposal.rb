@@ -7,6 +7,6 @@ class Proposal < ActiveRecord::Base
 
   belongs_to :proposal_status
 
-  accepts_nested_attributes_for :groups, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :rows,   reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :groups, allow_destroy: true
+  accepts_nested_attributes_for :rows,   allow_destroy: true
 end

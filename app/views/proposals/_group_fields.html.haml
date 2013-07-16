@@ -1,6 +1,17 @@
 %li.nested-fields.group
-  .field
-    = f.label :name
-    %br
-    = f.text_field :name
-  = link_to_remove_association "remove group", f
+  = f.hidden_field :position
+  .name{class: ('edit' if f.object.new_record?)}
+    %h2= f.object.name
+    .input-append
+      = f.text_field :name, placeholder: "Group name", class: 'span4'
+      = link_to 'Done', '#done', class: 'btn'
+  %ul.unstyled.group-rows
+    = f.fields_for :rows, f.object.rows.order("position") do |row|
+      = render "row_fields", f: row
+
+  = proposal.add_row_button(f, name: "Add a row ...", class: 'add-row',
+    'data-association-insertion-node'      => 'ul.group-rows',
+    'data-association-insertion-traversal' => 'siblings',
+    wrap_object: Proc.new {|row| row.group = f.object; row })
+  = link_to_remove_association %{<i class="icon-remove-circle"></i>}.html_safe,
+    f, class: 'remove'

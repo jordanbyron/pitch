@@ -13,12 +13,12 @@ class ProposalDecorator < Draper::Decorator
     (model.rows + model.groups).sort_by(&:position)
   end
 
-  def add_row_button(f)
-    add_item_button f, :rows
+  def add_row_button(f, options={})
+    add_item_button f, :rows, options
   end
 
-  def add_group_button(f)
-    add_item_button f, :groups
+  def add_group_button(f, options={})
+    add_item_button f, :groups, options
   end
 
   def render_items(f)
@@ -37,11 +37,15 @@ class ProposalDecorator < Draper::Decorator
 
   private
 
-  def add_item_button(f, type)
-    h.link_to_add_association "+ #{type.to_s.singularize.capitalize}", f,
-      type, class: 'btn btn-small',
-      'data-association-insertion-node' => '#list',
-      'data-association-insertion-method' => 'append',
-      force_non_association_create: true
+  def add_item_button(f, type, options)
+    h.link_to_add_association(
+      options.delete(:name) || "+ #{type.to_s.singularize.capitalize}",
+      f, type, {
+        class: 'btn btn-small',
+        'data-association-insertion-node'   => '#list',
+        'data-association-insertion-method' => 'append',
+        force_non_association_create: true
+      }.merge(options)
+    )
   end
 end

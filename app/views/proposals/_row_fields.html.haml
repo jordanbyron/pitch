@@ -1,18 +1,13 @@
 %li.nested-fields.prow
-  .field
-    = f.label :sku
-    %br
-    = f.text_field :sku
-  .field
-    = f.label :description
-    %br
-    = f.text_field :description
-  .field
-    = f.label :quantity
-    %br
-    = f.text_field :quantity
-  .field
-    = f.label :price
-    %br
-    = f.text_field :price
-  = link_to_remove_association "remove row", f
+  = f.hidden_field :group_id
+  = f.hidden_field :position
+  .form-inline
+    = f.text_field :quantity, placeholder: 'Qty', class: 'span1'
+    = f.text_field :sku, placeholder: 'SKU', class: 'span2'
+    = f.text_field :description, placeholder: 'Description', class: 'span4'
+    .input-prepend
+      %span.add-on $
+      = f.text_field :price, placeholder: 'Price', class: 'span1'
+
+  = link_to_remove_association %{<i class="icon-remove-circle"></i>}.html_safe,
+    f, class: 'remove'
