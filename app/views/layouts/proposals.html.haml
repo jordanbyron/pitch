@@ -1,0 +1,10 @@
+!!!
+%html
+  %head= render "layouts/head"
+  %body{class: body_css}
+    .container
+      .row
+        .span12
+          = render "layouts/nav" if current_user
+          = render "layouts/flash", flash: flash
+      = yield

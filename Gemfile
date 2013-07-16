@@ -28,7 +28,6 @@ gem 'bootstrap-sass-rails'
 group :development do
   gem 'pry'
   gem 'quiet_assets'
-  gem 'compass-rails'
   # gem 'capistrano'
 end
 

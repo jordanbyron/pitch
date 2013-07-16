@@ -38,9 +38,10 @@ class ProposalDecorator < Draper::Decorator
   private
 
   def add_item_button(f, type)
-    h.link_to_add_association "Add #{type.to_s.singularize.capitalize}", f,
-      type, class: 'btn',
+    h.link_to_add_association "+ #{type.to_s.singularize.capitalize}", f,
+      type, class: 'btn btn-small',
       'data-association-insertion-node' => '#list',
-      'data-association-insertion-method' => 'append'
+      'data-association-insertion-method' => 'append',
+      force_non_association_create: true
   end
 end

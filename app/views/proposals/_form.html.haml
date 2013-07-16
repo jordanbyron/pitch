@@ -1,29 +1,33 @@
 = form_for proposal do |f|
-  %h1= proposal.number
-
-  %p
-    = f.label :customer_name
-    %br
-    = f.text_field :customer_name
-  %p
-    = f.label :description
-    %br
-    = f.text_field :description
-
-  %hr
-
-  %ul#list
-    = proposal.render_items(f)
-
-  .navbar.navbar-fixed-bottom
-    .navbar-inner
-      .container
-        .pull-left
-          = f.submit nil, class: 'btn btn-primary'
+  .row
+    .span3
+      #sidebar
+        .well.well-small
+          %table.table.table-condensed
+            %thead
+              %tr
+                %td Proposal #
+                %th.align-right= proposal.number
+            %tbody
+              %tr
+                %td{colspan: 2}= proposal.customer_name
+              %tr
+                %td Subtotal
+                %th.align-right $0.00
+              %tr
+                %td Tax
+                %th.align-right $0.00
+              %tr
+                %td Total
+                %th.align-right $0.00
+        .btn-group.pull-left
+          = f.submit "Save", class: 'btn btn-primary btn-small'
           = proposal.add_row_button(f)
           = proposal.add_group_button(f)
-        .pull-right
-          %p.navbar-text
-            = link_to "Delete Proposal", proposal_path(proposal),
+        %small.pull-right.delete
+          = link_to "Delete", proposal_path(proposal),
             data: { confirm: "Are you sure you wish to delete this proposal?" },
             method: 'delete', class: 'text-error'
+    .span9
+      %ul#list.unstyled
+        = proposal.render_items(f)

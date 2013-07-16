@@ -1,2 +1,23 @@
 body.proposals-new, body.proposals-edit
-  padding-bottom: 40px
+  form .row
+    margin-top: 20px
+  #sidebar
+    position: fixed
+    width: 220px
+    table
+      margin-bottom: 0
+      td, th
+        border-top: none
+    small.delete
+      line-height: 26px
+  #list
+    li
+      padding: 9px
+      +box-shadow(#aaa 0 0 2px)
+      +border-radius(3px)
+      margin-bottom: 10px
+      &.group
+        background-color: #C1C4CE
+      &.prow
+        background-color: #ecf0f1
+
