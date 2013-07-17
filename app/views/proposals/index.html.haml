@@ -10,7 +10,7 @@
       %th Description
       %th Status
   %tbody
-    - proposals.each do |proposal|
+    - @proposals.each do |proposal|
       %tr
         %td= link_to proposal.number, edit_proposal_path(proposal)
         %td= proposal.customer_name

@@ -10,7 +10,7 @@
     = f.fields_for :rows, f.object.rows.order("position") do |row|
       = render "row_fields", f: row
 
-  = proposal.add_row_button(f, name: "Add a row ...", class: 'add-row',
+  = @proposal.add_row_button(f, name: "Add a row ...", class: 'add-row',
     'data-association-insertion-node'      => 'ul.group-rows',
     'data-association-insertion-traversal' => 'siblings',
     wrap_object: Proc.new {|row| row.group = f.object; row })

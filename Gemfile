@@ -15,6 +15,7 @@ gem 'draper'
 gem 'will_paginate'
 gem 'decent_exposure'
 gem 'cocoon'
+gem 'virtus'
 
 # Asset Gems
 gem 'sass-rails', '~> 4.0.0'
