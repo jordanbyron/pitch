@@ -4,7 +4,9 @@ $ ->
     .on 'cocoon:after-insert', (e, item) ->
       item.children('input[name*=position]').val(item.index())
     .sortable(items: 'li.prow', connectWith: '.row-sorts')
-    .on 'sortupdate', ->
+    .on 'sortupdate', (e, data) ->
+      p = new Pitch.Row($(data.item))
+      p.toggle()
       $('#list li').each (i, item) ->
         $(item).children('input[name*=position]').val(i)
 

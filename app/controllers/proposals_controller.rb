@@ -16,6 +16,7 @@ class ProposalsController < ApplicationController
   end
 
   def update
+    proposal.rows.update_all(group_id: nil)
     proposal.updated_by = current_user
 
     if proposal.save
@@ -29,7 +30,7 @@ class ProposalsController < ApplicationController
 
   def proposal_params
     rows_attributes = [:id, '_destroy', :description, :sku, :quantity, :price,
-                        :position, :group_id]
+                        :position]
 
     params.require(:proposal).permit(:customer_name, :description,
       rows_attributes: rows_attributes,

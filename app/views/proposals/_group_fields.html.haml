@@ -1,4 +1,5 @@
-%li.nested-fields.group
+%li.nested-fields.group{ data: { index: "[#{f.index}]" }}
+  = f.hidden_field :id
   = f.hidden_field :position
   .name{class: ('edit' if f.object.new_record?)}
     %h2= f.object.name
