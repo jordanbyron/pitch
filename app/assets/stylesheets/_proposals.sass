@@ -22,8 +22,25 @@ body.proposals-new, body.proposals-edit
       +box-shadow(#aaa 0 0 2px)
       +border-radius(3px)
       margin-bottom: 10px
+      &#drag-placeholder
+        height: 30px
+        background-color: rgba(0,0,0, 0.25)
+        +box-shadow(#000 0 0 4px inset)
       &.group
         background-color: #4B72A3
+        > .dz-middle
+          height: 32px
+          top: 32px
+        > .dz-top
+          bottom: inherit
+          height: 32px
+          &.over
+            height: 100px
+        > .dz-bottom
+          top: inherit
+          height: 32px
+          &.over
+            height: 100px
         div.name
           div.input-append
             display: none
@@ -45,15 +62,46 @@ body.proposals-new, body.proposals-edit
             cursor: pointer
         ul.group-rows li.prow
           padding-left: 9px
+          a.remove
+            right: 7px
       &.prow
         background-color: #ecf0f1
         padding-left: 18px
+        &.dragging
+          .dz-top, .dz-bottom
+            display: none
       a.remove
         position: absolute
         top: 4px
-        right: 7px
+        right: 16px
       div.input-append
         margin-bottom: 0
       a.add-row
         color: rgba(255, 255, 255, 0.5)
         display: block
+
+body.dragging
+  .dz-top, .dz-bottom, .dz-middle
+    display: block
+  &.group-drag #list li.group, #list li.group.dragging
+    div.name h2
+      margin-bottom: 0
+    ul, a
+      display: none
+
+.dz-top, .dz-bottom, .dz-middle
+  position: absolute
+  left: 0
+  right: 0
+  z-index: 2
+  display: none
+.dz-top
+  top: 0
+  bottom: 50%
+  &.over
+    top: -68px
+.dz-bottom
+  bottom: 0
+  top: 50%
+  &.over
+    bottom: -68px

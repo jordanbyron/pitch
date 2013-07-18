@@ -9,7 +9,6 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.new.decorate
   end
 
-  # TODO Fix me
   def create
     @proposal = Proposal.new(proposal_params)
 

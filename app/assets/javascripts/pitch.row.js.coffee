@@ -1,9 +1,15 @@
 class Pitch.Row
-  @indexCounter = 0
+  @idCounter = 0
 
-  constructor: (@row) ->
-    @inputs       = @row.find(':input')
-    @_uniqueIndex = new Date().getTime() + Pitch.Row.indexCounter++
+  constructor: (@proposal, @row) ->
+    @inputs   = @row.find(':input')
+    @id       = new Date().getTime() + Pitch.Row.idCounter++
+    @position = @row.find('input[name*=position]:first')
+
+    @row.attr('draggable', true)
+    @row.attr('data-id', @id)
+
+    @proposal.rows[@id] = this
   toggle: =>
     inMainList = @row.parent('#list').length == 1
 
@@ -13,14 +19,17 @@ class Pitch.Row
       this.group()
 
   group: =>
-    groupID = @row.parents('li.group').data('index')
+    groupID = @row.parents('li.group').data('id')
     return false unless groupID?
 
     this._renameInputs "[groups_attributes][#{groupID}][rows_attributes]" +
-      "[#{@_uniqueIndex}]"
+      "[#{@id}]"
 
   unGroup: =>
-    this._renameInputs "[rows_attributes][#{@_uniqueIndex}]"
+    this._renameInputs "[rows_attributes][#{@id}]"
+
+  updatePosition: =>
+    @position.val $('#list li').index(@row)
 
   # Private
 
