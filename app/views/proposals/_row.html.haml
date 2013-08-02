@@ -1,0 +1,10 @@
+.form-inline
+  %input.span1{type: 'text', placeholder: 'Qty', 'ng-model' => 'row.quantity'}
+  %input.span2{type: 'text', placeholder: 'SKU', 'ng-model' => 'row.sku'}
+  %input.span4{type: 'text', placeholder: 'Description',
+    'ng-model' => 'row.description'}
+  .input-prepend
+    %span.add-on $
+    %input.span1{type: 'text', placeholder: 'Price', 'ng-model' => 'row.price'}
+  %a.remove{href: '#remove'}
+    %i.icon-remove-circle

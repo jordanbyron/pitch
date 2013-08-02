@@ -1,4 +1,4 @@
-= form_for proposal do |f|
+%div{'ng-controller' => 'PitchCtrl'}
   .row
     .span3
       #sidebar
@@ -7,22 +7,21 @@
             %thead
               %tr
                 %td Proposal #
-                %th.align-right= proposal.number
+                %th.align-right {{proposal.number}}
             %tbody
               %tr
-                %td{colspan: 2}= proposal.customer_name
+                %td{colspan: 2} {{proposal.customer_name}}
               %tr
                 %td Subtotal
-                %th.align-right $0.00
+                %th.align-right {{proposal.subtotal() | currency}}
               %tr
                 %td Tax
-                %th.align-right $0.00
+                %th.align-right {{proposal.tax() | currency}}
               %tr
                 %td Total
-                %th.align-right $0.00
+                %th.align-right {{proposal.total() | currency}}
         .btn-group.pull-left
-          = f.submit "Save", class: 'btn btn-primary btn-small'
-
+          %button.btn.btn-primary.btn-small Save
         .btn-group.pull-right
           %a.btn.btn-small.dropdown-toggle{data: {toggle:"dropdown"}, href: "#"}
             %i.icon-cog
@@ -33,3 +32,5 @@
             method: 'delete'
     .span9
       %ul#list.unstyled
+        %li.prow{'ng-repeat' => "row in proposal.rows"}
+          = render 'row'
