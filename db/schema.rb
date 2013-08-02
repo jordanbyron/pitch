@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130715184954) do
+ActiveRecord::Schema.define(version: 20130802182920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: true do |t|
     t.string   "company_name"
-    t.string   "database_name"
+    t.string   "subdomain"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20130715184954) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
   create_table "proposal_statuses", force: true do |t|
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 20130715184954) do
     t.boolean  "default",          default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
   create_table "proposals", force: true do |t|
@@ -49,6 +51,7 @@ ActiveRecord::Schema.define(version: 20130715184954) do
     t.integer  "proposal_status_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
   create_table "rows", force: true do |t|
@@ -61,6 +64,7 @@ ActiveRecord::Schema.define(version: 20130715184954) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
   create_table "users", force: true do |t|
@@ -87,6 +91,7 @@ ActiveRecord::Schema.define(version: 20130715184954) do
     t.string   "last_name"
     t.string   "time_zone"
     t.string   "title"
+    t.integer  "account_id"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

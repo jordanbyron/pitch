@@ -1,12 +1,10 @@
 class Group < ActiveRecord::Base
+  default_scope { where(account_id: Account.current_id) }
+
   belongs_to :proposal
-  has_many   :rows, autosave: true
+  has_many   :rows
 
   def position
     self[:position] || 0
-  end
-
-  def rows_attributes=(attributes)
-    RowAttributes.new(self, attributes)
   end
 end

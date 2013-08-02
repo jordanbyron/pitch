@@ -4,20 +4,24 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :authenticate_user!
+  around_filter :scope_current_account
 
   helper_method :current_account, :decorated_user
-
-  decent_configuration do
-    strategy DecentExposure::StrongParametersStrategy
-  end
 
   private
 
   def current_account
-    Account.where(database_name: Apartment::Database.current).first
+    @current_account ||= Account.find_by_subdomain(request.subdomain)
   end
 
   def decorated_user
     @decorated_user ||= UserDecorator.decorate(current_user)
+  end
+
+  def scope_current_account
+    Account.current_id = current_account.try(:id)
+    yield
+  ensure
+    Account.current_id = nil
   end
 end

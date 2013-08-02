@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 # Core
 gem 'rails', '4.0.0'
 gem 'pg'
-gem 'apartment'
 
 # Authentication and Authorization
 gem 'devise'
@@ -13,9 +12,6 @@ gem 'cancan'
 gem 'haml'
 gem 'draper'
 gem 'will_paginate'
-gem 'decent_exposure'
-gem 'cocoon'
-gem 'virtus'
 
 # Asset Gems
 gem 'sass-rails', '~> 4.0.0'
@@ -23,6 +19,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'bootstrap-sass-rails'
+gem 'angularjs-rails'
 
 # gem 'turbolinks'
 
