@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20130802182920) do
     t.integer  "account_id"
   end
 
+  add_index "groups", ["account_id"], name: "index_groups_on_account_id", using: :btree
+
   create_table "proposal_statuses", force: true do |t|
     t.string   "name"
     t.integer  "system_status_id"
@@ -40,6 +42,8 @@ ActiveRecord::Schema.define(version: 20130802182920) do
     t.datetime "updated_at"
     t.integer  "account_id"
   end
+
+  add_index "proposal_statuses", ["account_id"], name: "index_proposal_statuses_on_account_id", using: :btree
 
   create_table "proposals", force: true do |t|
     t.integer  "created_by_id"
@@ -54,6 +58,8 @@ ActiveRecord::Schema.define(version: 20130802182920) do
     t.integer  "account_id"
   end
 
+  add_index "proposals", ["account_id"], name: "index_proposals_on_account_id", using: :btree
+
   create_table "rows", force: true do |t|
     t.integer  "proposal_id"
     t.integer  "group_id"
@@ -66,6 +72,8 @@ ActiveRecord::Schema.define(version: 20130802182920) do
     t.datetime "updated_at"
     t.integer  "account_id"
   end
+
+  add_index "rows", ["account_id"], name: "index_rows_on_account_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",      null: false
@@ -94,6 +102,7 @@ ActiveRecord::Schema.define(version: 20130802182920) do
     t.integer  "account_id"
   end
 
+  add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

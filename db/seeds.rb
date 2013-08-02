@@ -1,7 +1,9 @@
-raw_parameters = { subdomain: 'jb', company_name: "Jordan's Company" }
-parameters = ActionController::Parameters.new(raw_parameters)
+account = Account.new
 
-account = Account.create(parameters.permit(:database_name, :company_name))
+account.subdomain    = "jb"
+account.company_name = "Jordan's Company"
+
+account.save!
 
 user = User.new
 
@@ -12,4 +14,4 @@ user.password              = "temp123456"
 user.password_confirmation = "temp123456"
 user.account_id            = account.id
 
-user.save
+user.save!

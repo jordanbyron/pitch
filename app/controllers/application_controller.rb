@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :authenticate_user!
   around_filter :scope_current_account
+  before_filter :authenticate_user!
 
   helper_method :current_account, :decorated_user
 
