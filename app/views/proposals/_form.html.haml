@@ -22,8 +22,6 @@
                 %th.align-right $0.00
         .btn-group.pull-left
           = f.submit "Save", class: 'btn btn-primary btn-small'
-          = proposal.add_row_button(f)
-          = proposal.add_group_button(f)
 
         .btn-group.pull-right
           %a.btn.btn-small.dropdown-toggle{data: {toggle:"dropdown"}, href: "#"}
@@ -35,4 +33,3 @@
             method: 'delete'
     .span9
       %ul#list.unstyled
-        = proposal.render_items(f)
