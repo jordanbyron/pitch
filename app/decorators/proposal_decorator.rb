@@ -12,4 +12,13 @@ class ProposalDecorator < Draper::Decorator
   def list
     (model.rows + model.groups).sort_by(&:position)
   end
+
+  def to_json
+    {
+      id: model.id,
+      number: number,
+      customer_name: model.customer_name,
+      description: model.description
+    }
+  end
 end

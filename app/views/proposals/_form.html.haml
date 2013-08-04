@@ -21,7 +21,8 @@
                 %td Total
                 %th.align-right {{proposal.total() | currency}}
         .btn-group.pull-left
-          %button.btn.btn-primary.btn-small Save
+          %button.btn.btn-primary.btn-small{'ng-click' => 'save()'} Save
+          %button.btn.btn-small{'ng-click' => 'addRow()'} + Row
         .btn-group.pull-right
           %a.btn.btn-small.dropdown-toggle{data: {toggle:"dropdown"}, href: "#"}
             %i.icon-cog

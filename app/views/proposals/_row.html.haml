@@ -1,10 +1,13 @@
 .form-inline
-  %input.span1{type: 'text', placeholder: 'Qty', 'ng-model' => 'row.quantity'}
-  %input.span2{type: 'text', placeholder: 'SKU', 'ng-model' => 'row.sku'}
+  %input.span1{type: 'text', placeholder: 'Qty', 'ng-model' => 'row.quantity',
+    'ng-change' => "row.rate_save()"}
+  %input.span2{type: 'text', placeholder: 'SKU', 'ng-model' => 'row.sku',
+    'ng-change' => "row.rate_save()"}
   %input.span4{type: 'text', placeholder: 'Description',
-    'ng-model' => 'row.description'}
+    'ng-model' => 'row.description', 'ng-change' => "row.rate_save()"}
   .input-prepend
     %span.add-on $
-    %input.span1{type: 'text', placeholder: 'Price', 'ng-model' => 'row.price'}
-  %a.remove{href: '#remove'}
+    %input.span1{type: 'text', placeholder: 'Price', 'ng-model' => 'row.price',
+      'ng-change' => "row.rate_save()"}
+  %a.remove{href: '#remove', 'ng-click' => 'deleteRow($index)'}
     %i.icon-remove-circle

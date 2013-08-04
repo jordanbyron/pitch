@@ -1,8 +1,14 @@
 class ProposalsController < ApplicationController
-  before_filter :find_proposal, only: %w[edit update destroy]
+  before_filter :find_proposal, only: %w[show edit update destroy]
 
   def index
     @proposals = Proposal.order("updated_at DESC").decorate
+  end
+
+  def show
+    respond_to do |format|
+      format.json { render json: @proposal.to_json }
+    end
   end
 
   def new
@@ -28,7 +34,11 @@ class ProposalsController < ApplicationController
     @proposal.updated_by = current_user
 
     if @proposal.save
-      redirect_to edit_proposal_path(@proposal)
+      respond_to do |format|
+        format.html { redirect_to edit_proposal_path(@proposal) }
+        format.json { render json: @proposal.to_json }
+      end
+
     else
       render :edit
     end
@@ -44,13 +54,7 @@ class ProposalsController < ApplicationController
   private
 
   def proposal_params
-    rows_attributes = [:id, '_destroy', :description, :sku, :quantity, :price,
-                        :position]
-
-    params.require(:proposal).permit(:customer_name, :description,
-      rows_attributes: rows_attributes,
-      groups_attributes: [:id, '_destroy', :name, :position,
-        rows_attributes: rows_attributes])
+    params.require(:proposal).permit(:customer_name, :description)
   end
 
   def find_proposal

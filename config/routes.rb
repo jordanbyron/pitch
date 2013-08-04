@@ -3,5 +3,7 @@ Pitch::Application.routes.draw do
 
   root to: 'home#index'
 
-  resources :proposals
+  resources :proposals do
+    resources :rows
+  end
 end
