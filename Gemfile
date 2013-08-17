@@ -21,6 +21,12 @@ gem 'jquery-rails'
 gem 'bootstrap-sass-rails'
 gem 'angularjs-rails'
 
+# Websockets
+
+gem 'puma'
+gem 'redis'
+gem 'tubesock'
+
 # gem 'turbolinks'
 
 group :development do

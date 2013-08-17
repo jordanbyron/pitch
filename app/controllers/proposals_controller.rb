@@ -1,5 +1,7 @@
 class ProposalsController < ApplicationController
-  before_filter :find_proposal, only: %w[show edit update destroy]
+  include Tubesock::Hijack
+
+  before_filter :find_proposal, only: %w[show edit update destroy stream]
 
   def index
     @proposals = Proposal.order("updated_at DESC").decorate
@@ -16,7 +18,7 @@ class ProposalsController < ApplicationController
   end
 
   def create
-    @proposal = Proposal.new(proposal_params)
+    @proposal = Proposal.new # (proposal_params)
 
     @proposal.created_by = current_user
     @proposal.updated_by = current_user
@@ -26,6 +28,34 @@ class ProposalsController < ApplicationController
     else
       @proposal = @proposal.decorate
       render :new
+    end
+  end
+
+  def stream
+    channel = "proposal_#{@proposal.id}"
+
+    hijack do |tubesock|
+      # Listen on its own thread
+      redis_thread = Thread.new do
+        # Needs its own redis connection to pub
+        # and sub at the same time
+        Redis.new.subscribe channel do |on|
+          on.message do |channel, message|
+            tubesock.send_data message
+          end
+        end
+      end
+
+      tubesock.onmessage do |m|
+        # pub the message when we get one
+        # note: this echoes through the sub above
+        Redis.new.publish channel, m
+      end
+
+      tubesock.onclose do
+        # stop listening when client leaves
+        redis_thread.kill
+      end
     end
   end
 

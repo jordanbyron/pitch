@@ -4,6 +4,9 @@ Pitch::Application.routes.draw do
   root to: 'home#index'
 
   resources :proposals do
+    member do
+      get 'stream'
+    end
     resources :rows
   end
 end

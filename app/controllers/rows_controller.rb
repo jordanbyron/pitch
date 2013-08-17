@@ -7,6 +7,10 @@ class RowsController < ApplicationController
     respond_with @proposal.rows.order("position")
   end
 
+  def show
+    respond_with Row.find(params[:id])
+  end
+
   def create
     render json: @proposal.rows.create(row_params)
   end

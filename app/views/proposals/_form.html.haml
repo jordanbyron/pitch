@@ -1,4 +1,4 @@
-%div{'ng-controller' => 'PitchCtrl'}
+#proposal{'ng-controller' => 'PitchCtrl', data: {id: @proposal.id}}
   .row
     .span3
       #sidebar
@@ -21,8 +21,7 @@
                 %td Total
                 %th.align-right {{proposal.total() | currency}}
         .btn-group.pull-left
-          %button.btn.btn-primary.btn-small{'ng-click' => 'save()'} Save
-          %button.btn.btn-small{'ng-click' => 'addRow()'} + Row
+          %button.btn.btn-small{'ng-click' => 'createRow()'} + Row
         .btn-group.pull-right
           %a.btn.btn-small.dropdown-toggle{data: {toggle:"dropdown"}, href: "#"}
             %i.icon-cog
