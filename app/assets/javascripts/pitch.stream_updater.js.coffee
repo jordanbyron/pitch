@@ -10,4 +10,4 @@ class Pitch.StreamUpdater
       if target[attribute] == old_value
         target[attribute] = new_value
       else
-        alert "Someone has updated #{attribute} to #{new_value}"
+        console.debug "Someone has updated #{attribute} to #{new_value}"

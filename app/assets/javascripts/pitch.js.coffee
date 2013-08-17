@@ -1,4 +1,4 @@
-app = angular.module("Pitch", ['restangular'])
+app = angular.module("Pitch", ['restangular', 'ui.sortable'])
 
 app.config ["$httpProvider", ($httpProvider) ->
   csrfToken = $('meta[name=csrf-token]').attr('content')
@@ -62,6 +62,14 @@ app.config ["RestangularProvider", (RestangularProvider) ->
   Restangular.one("proposals", $scope.id).get().then (proposal) ->
     $scope.proposal = proposal
 
+  $scope.sortableOptions =
+    axis: 'y'
+    stop: (e, ui) ->
+      $.each $scope.proposal.rows, (position, row) ->
+        if row.position != position
+          row.position = position
+          row.save()
+
   # TODO These methods sound like they do the same thing, but in reality are
   # doing very different things.
   $scope.createRow = ->
@@ -90,7 +98,7 @@ app.config ["RestangularProvider", (RestangularProvider) ->
 
     else if data.item == "proposal"
       switch data.action
-        when 'update' then $scope.proposal.update(data)
+        when 'update'  then $scope.proposal.update(data)
         when 'destroy' then $scope.proposal.destroy()
 
     $scope.$apply()

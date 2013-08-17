@@ -41,6 +41,8 @@
             data: { confirm: "Are you sure you wish to delete this proposal?" },
             method: 'delete'
     .span9
-      %ul#list.unstyled
-        %li.prow{'ng-repeat' => "row in proposal.rows"}
+      %ul#list.unstyled{'ui-sortable' => 'sortableOptions',
+        'ng:model' => 'proposal.rows'}
+        %li.prow{'ng-repeat' => "row in proposal.rows | orderBy:'position'",
+          data: {id: "{{row.id}}"}}
           = render 'row'
