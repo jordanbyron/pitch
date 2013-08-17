@@ -10,7 +10,17 @@
                 %th.align-right {{proposal.number}}
             %tbody
               %tr
-                %td{colspan: 2} {{proposal.customer_name}}
+                %td{colspan: 2}
+                  %input.minimal{type: 'text',
+                    'ng-model'  => 'proposal.customer_name',
+                    'ng-change' => 'proposal.rate_save()',
+                    placeholder: 'Customer name'}
+              %tr
+                %td{colspan: 2}
+                  %input.minimal{type: 'text',
+                    'ng-model'  => 'proposal.description',
+                    'ng-change' => 'proposal.rate_save()',
+                    placeholder: 'Description'}
               %tr
                 %td Subtotal
                 %th.align-right {{proposal.subtotal() | currency}}

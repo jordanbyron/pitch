@@ -2,9 +2,11 @@ class Proposal < ActiveRecord::Base
   default_scope { where(account_id: Account.current_id) }
 
   before_create :next_proposal_number
+  after_update  :stream_update
+  after_destroy :stream_destroy
 
-  has_many :groups, autosave: true
-  has_many :rows,   autosave: true
+  has_many :groups
+  has_many :rows
 
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User'
@@ -17,4 +19,23 @@ class Proposal < ActiveRecord::Base
     self.proposal_number ||= (Proposal.maximum("proposal_number") || 0) + 1
     self.revision        ||= 0
   end
+
+  def stream_update
+    stream('update', changes: changes)
+  end
+
+  def stream_destroy
+    stream('destroy')
+  end
+
+  def stream(action, data = {})
+    channel = "proposal_#{id}"
+
+    Redis.new.publish channel, data.merge(
+      action: action,
+      item:   'proposal',
+      id:     id
+    ).to_json
+  end
+
 end

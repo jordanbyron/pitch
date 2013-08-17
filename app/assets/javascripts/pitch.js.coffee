@@ -25,11 +25,15 @@ app.config ["RestangularProvider", (RestangularProvider) ->
     proposal.getList('rows').then (rows) ->
       proposal.rows = rows
 
-    proposal.save = ->
-      this.put()
+    proposal.save = -> this.put()
 
-      angular.forEach this.rows, (row) ->
-        row.save()
+    proposal.update = (data) -> new Pitch.StreamUpdater(proposal, data)
+
+    proposal.destroy = ->
+      # TODO Show a message alerting the user that the proposal has been deleted
+      window.location.href = "/proposals"
+
+    proposal.rate_save = _.debounce(proposal.save, 500)
 
     proposal
 
@@ -43,16 +47,7 @@ app.config ["RestangularProvider", (RestangularProvider) ->
     row.save = ->
       row.put()
 
-    row.update = (data) ->
-      changes = _.pairs data.changes
-
-      _.each changes, (change) ->
-        attribute = change[0]
-        new_value = change[1][1]
-        old_value = change[1][0]
-
-        if row[attribute] == old_value
-          row[attribute] = new_value
+    row.update = (data) -> new Pitch.StreamUpdater(row, data)
 
     row.rate_save = _.debounce(row.save, 500)
 
@@ -84,9 +79,6 @@ app.config ["RestangularProvider", (RestangularProvider) ->
   $scope.removeRow = (index) ->
     $scope.proposal.rows.splice(index, 1)
 
-  $scope.save = ->
-    $scope.proposal.save()
-
   $scope.$on 'update', (e, data) ->
     if data.item == "row"
       row = _.find $scope.proposal.rows, (row) -> row.id == data.id
@@ -95,6 +87,11 @@ app.config ["RestangularProvider", (RestangularProvider) ->
         when 'create'  then $scope.addRow(data.id)
         when 'update'  then row.update(data)
         when 'destroy' then $scope.removeRow($scope.proposal.rows.indexOf(row))
+
+    else if data.item == "proposal"
+      switch data.action
+        when 'update' then $scope.proposal.update(data)
+        when 'destroy' then $scope.proposal.destroy()
 
     $scope.$apply()
 
