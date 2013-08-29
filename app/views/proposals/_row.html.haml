@@ -1,4 +1,6 @@
 .form-inline
+  %a.btn{href: '#find', 'bs-popover' => 'popover', 'data-unique' => '1'}
+    %i.icon-search
   %input.span1{type: 'text', placeholder: 'Qty', 'ng-model' => 'row.quantity',
     'ng-change' => "row.rate_save()"}
   %input.span2{type: 'text', placeholder: 'SKU', 'ng-model' => 'row.sku',

@@ -1,4 +1,4 @@
-app = angular.module("Pitch", ['restangular', 'ui.sortable'])
+app = angular.module("Pitch", ['restangular', 'ui.sortable', '$strap.directives'])
 
 app.config ["$httpProvider", ($httpProvider) ->
   csrfToken = $('meta[name=csrf-token]').attr('content')
@@ -54,6 +54,13 @@ app.config ["RestangularProvider", (RestangularProvider) ->
     row
 ]
 
+$(document).on 'click', "a[rel='search-popover']", ->
+  $(this).popover
+    html: true
+    title: "Product Search"
+    content: -> $('#search').html()
+
+
 @PitchCtrl = ($scope, Restangular) ->
   $scope.id = $('#proposal').data('id')
 
@@ -61,6 +68,8 @@ app.config ["RestangularProvider", (RestangularProvider) ->
 
   Restangular.one("proposals", $scope.id).get().then (proposal) ->
     $scope.proposal = proposal
+
+  $scope.popover = { content: "Hi this is a test", title: "Search" }
 
   $scope.sortableOptions =
     axis: 'y'
@@ -103,3 +112,6 @@ app.config ["RestangularProvider", (RestangularProvider) ->
 
     $scope.$apply()
 
+$ ->
+  $('[href^=#]').click (e) ->
+    e.preventDefault()
