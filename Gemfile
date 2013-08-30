@@ -38,16 +38,13 @@ end
 group :development, :test do
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'
-  gem 'capybara-screenshot'
 end
 
 group :test do
   gem 'capybara-webkit'
   gem 'factory_girl_rails'
+  gem 'capybara-screenshot'
   gem 'database_cleaner'
-  gem 'notifier', git: 'git://github.com/jordanbyron/notifier.git', 
-                  branch: 'osx_notifications'
-  gem 'test_notifier'
   gem 'turn'
   gem 'launchy'
 end
