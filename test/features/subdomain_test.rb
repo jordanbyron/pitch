@@ -2,12 +2,10 @@ require_relative 'feature_helper'
 
 feature "Subdomains are scoped to a specific Account" do
   before do
-    Capybara.always_include_port = true
-
     @jb      = FactoryGirl.create(:account, subdomain: 'jb')
-    @jb_user = FactoryGirl.create(:user, account_id: @jb.id)
+    @jb_user = FactoryGirl.create(:user)
     @gb      = FactoryGirl.create(:account, subdomain: 'gb')
-    @gb_user = FactoryGirl.create(:user, account_id: @gb.id)
+    @gb_user = FactoryGirl.create(:user)
   end
 
   describe "jb account" do
@@ -39,6 +37,7 @@ feature "Subdomains are scoped to a specific Account" do
   end
 
   def sign_in(user, subdomain=nil)
+    # lvh.me resolves to 127.0.0.1
     Capybara.app_host = "http://#{subdomain}.lvh.me" if subdomain
 
     visit new_user_session_path
